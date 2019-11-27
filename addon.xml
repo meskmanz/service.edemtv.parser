@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="service.edemtv.parser" name="Edem.tv Playlist Parser" version="0.0.1" provider-name="Meskman">
+    <requires>
+        <import addon="xbmc.python" version="2.25.0"/>
+
+
+    </requires>
+    <extension point="xbmc.service" library="main.py" start="login"/>
+    <extension point="xbmc.addon.metadata">
+        <summary lang="en_GB">Parsing playlist</summary>
+        <description lang="en_GB"></description>
+        <language></language>
+        <platform>all</platform>
+        <license>UNLICENSED</license>
+        <forum></forum>
+        <website>kodi.tv</website>
+        <email>mesk.trashwgmail.com</email>
+        <source></source>
+        <news></news>
+        <disclaimer></disclaimer>
+        <assets>
+            <icon>resources/icon.png</icon>
+            <fanart>resources/fanart.jpg</fanart>
+        </assets>
+    </extension>
+</addon>

@@ -1,0 +1,63 @@
+# Kodi Media Center language file
+# Addon Name: Edem.tv Playlist Parser
+# Addon id: service.edemtv.parser
+# Addon Provider: Meskman
+msgid ""
+msgstr ""
+"Project-Id-Version: XBMC Addons\n"
+"Report-Msgid-Bugs-To: alanwww1@xbmc.org\n"
+"POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Kodi Translation Team\n"
+"Language-Team: English (http://www.transifex.com/projects/p/xbmc-addons/language/en/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#This is a comment
+
+msgctxt "#32000"
+msgid "Example"
+msgstr ""
+
+msgctxt "#32001"
+msgid "Debug"
+msgstr ""
+
+msgctxt "#30010"
+msgid "General"
+msgstr ""
+
+msgctxt "#30012"
+msgid "Edem.tv M3U Play List URL"
+msgstr ""
+
+msgctxt "#30011"
+msgid "Edited M3U Play List Path"
+msgstr ""
+
+msgctxt "#30013"
+msgid "Edited M3U Play List filename"
+msgstr ""
+
+msgctxt "#30014"
+msgid "Check playlist every (sec)"
+msgstr ""
+
+msgctxt "#30020"
+msgid "Wishlist settings"
+msgstr ""
+
+msgctxt "#30021"
+msgid "Wishlist Path"
+msgstr ""
+
+msgctxt "#30022"
+msgid "Wishlist filename"
+msgstr ""
+
+msgctxt "#30030"
+msgid "Development"
+msgstr ""

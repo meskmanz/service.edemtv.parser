@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<settings>
+    <category label="30010">    
+    <setting id="sep1" label="30010" type="lsep"/>
+    <setting id="m3uUrl" type="text" label="30012" default=""/>
+    <setting id="m3uPath" type="folder" label="30011" default=""/>
+    <setting id="m3uFilename" type="text" label="30013" default="edited_playlist.m3u8"/>
+    <setting id="timer" type="number" label="30014" default="3600" />
+    </category>
+    <category label="30020">
+    <setting id="sep2" label="30020" type="lsep"/>
+    <setting id="wlPath" type="folder" label="30021" default=""/>
+    <setting id="wlFilename" type="text" label="30022" default="my_channels.txt"/>
+    </category>
+    <category label="30030">    
+    <setting id="sep1" label="30030" type="lsep"/>
+    <setting id="debug" type="bool" label="32001" default="false"/>
+    </category>
+</settings>
+
