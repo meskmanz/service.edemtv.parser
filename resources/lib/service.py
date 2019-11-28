@@ -88,12 +88,12 @@ def parse():
                     logger.debug("%s is found in %s" % (channel_name.decode('utf-8'), path))
                     if channel_group[8:] != channels[key]:
                         logger.debug("Group is not the same for %s" % channel_name.decode('utf-8'))
-                        channel_group = "#EXTGRP:%s\n" % channels[key]
+                        channel_group = "#EXTGRP:%s" % channels[key]
                         break
                     else:
                         logger.debug("Group is the same %s" % channel_name.decode('utf-8'))
 
                 else:
                     logger.debug("%s is NOT found in %s" % (channel_name.decode('utf-8'), path))
-            f.write(channel_name +"\n"+ channel_group +"\n"+ channel_link +"\n")
+            f.write('#EXTINF:0 group-title="' + channel_group[8:] + '",' + channel_name[10:] +"\n"+ channel_group +"\n"+ channel_link +"\n")
         f.close()
