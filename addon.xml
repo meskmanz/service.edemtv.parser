@@ -7,14 +7,14 @@
     </requires>
     <extension point="xbmc.service" library="main.py" start="login"/>
     <extension point="xbmc.addon.metadata">
-        <summary lang="en_GB">Parsing playlist</summary>
+        <summary lang="en_GB">This service is parsing playlist from Edem.tv and modifies it according to your withes. Then it generates a new playlist that can be used in PVR IPTV Simple Client.</summary>
         <description lang="en_GB"></description>
         <language></language>
         <platform>all</platform>
         <license>UNLICENSED</license>
         <forum></forum>
         <website>kodi.tv</website>
-        <email>mesk.trashwgmail.com</email>
+        <email>mesk.trash@gmail.com</email>
         <source></source>
         <news></news>
         <disclaimer></disclaimer>
