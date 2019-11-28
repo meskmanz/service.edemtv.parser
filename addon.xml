@@ -7,8 +7,10 @@
     </requires>
     <extension point="xbmc.service" library="main.py" start="login"/>
     <extension point="xbmc.addon.metadata">
-        <summary lang="en_GB">This service is parsing playlist from Edem.tv and modifies it according to your withes. Then it generates a new playlist that can be used in PVR IPTV Simple Client.</summary>
-        <description lang="en_GB"></description>
+        <summary lang="en_GB">This service addon adopts Edem.tv playlist to Kodi requirements </summary>
+        <description lang="en_GB">This service is parsing playlist from Edem.tv and modifies it according to your withes. Then it generates a new playlist that can be used in PVR IPTV Simple Client.</description>
+        <summary lang="ru_Ru">Для корректной работы необходимо: 1. Указать ссылку на Едем.тв плейлист. 2. Указать где лежит файл с пожеланиями по каналах и группах. 3. В Pvr IPTVSimpleClient указать плейлист сгенерированный этим дополнением</summary>
+        <description lang="ru_RU">Это дополнение адаптирует плейлист от Едем.тв для Коди(парсает группы, сортирует группы)</description>
         <language></language>
         <platform>all</platform>
         <license>UNLICENSED</license>
