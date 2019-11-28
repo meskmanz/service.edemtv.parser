@@ -75,18 +75,18 @@ def parse():
                                         kodiutils.get_setting("m3uFilename"))
         logger.debug(plylist_path)
         f = open(plylist_path, "w+")
-        f.write("#EXTM3U\r")
+        f.write("#EXTM3U\n")
         pattern = "(\#EXTINF\:0\,.*)\n(\#EXTGRP\:.*)\n(http\:\/\/.*)\n"
         match = re.finditer(pattern, data, re.M | re.I)
         for item in match:
-            channel_name = item.group(1)
-            channel_group = item.group(2)
-            channel_link = item.group(3)
+            channel_name = item.group(1).replace("\r", "")
+            channel_group = item.group(2).replace("\r", "")
+            channel_link = item.group(3).replace("\r", "")
             # print channel_name
             for key in channels:
-                if channel_name[10:].replace("\r", "") == key:
+                if channel_name[10:] == key:
                     logger.debug("%s is found in %s" % (channel_name.decode('utf-8'), path))
-                    if channel_group[8:].replace("\r", "") != channels[key]:
+                    if channel_group[8:] != channels[key]:
                         logger.debug("Group is not the same for %s" % channel_name.decode('utf-8'))
                         channel_group = "#EXTGRP:%s\n" % channels[key]
                         break
@@ -95,7 +95,5 @@ def parse():
 
                 else:
                     logger.debug("%s is NOT found in %s" % (channel_name.decode('utf-8'), path))
-            f.write(channel_name)
-            f.write(channel_group)
-            f.write(channel_link)
+            f.write(channel_name +"\n"+ channel_group +"\n"+ channel_link +"\n")
         f.close()
