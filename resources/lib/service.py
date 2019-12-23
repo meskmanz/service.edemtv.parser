@@ -86,6 +86,8 @@ def parse():
             plylist_path = os.path.join(xbmc.translatePath(ADDON.getAddonInfo('profile')),
                                         kodiutils.get_setting("m3uFilename"))
         logger.debug(plylist_path)
+        if kodiutils.get_setting_as_bool("debug"):
+            f_ch_list = open(os.path.join(kodiutils.get_setting("wlPath"), "channel_list.txt"), "w+")
         f = open(plylist_path, "w+")
         f.write("#EXTM3U\n")
         pattern = "(\#EXTINF\:0\,.*)\n(\#EXTGRP\:.*)\n(http\:\/\/.*)\n"
@@ -95,6 +97,9 @@ def parse():
             channel_group = item.group(2).replace("\r", "")
             channel_link = item.group(3).replace("\r", "")
             # print channel_name
+            if kodiutils.get_setting_as_bool("debug"):
+                logger.debug(channel_name[10:] + ":" + channel_group[8:] + '\n')
+                f_ch_list.write(channel_name[10:] + ":" + channel_group[8:] + '\n')
             for key in channels:
                 if channel_name[10:] == key:
                     logger.debug("%s is found" % (channel_name.decode('utf-8')))
