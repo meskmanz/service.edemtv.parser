@@ -96,6 +96,7 @@ def parse():
             channel_name = item.group(1).replace("\r", "")
             channel_group = item.group(2).replace("\r", "")
             channel_link = item.group(3).replace("\r", "")
+            write = True
             # print channel_name
             if kodiutils.get_setting_as_bool("debug"):
                 logger.debug(channel_name[10:] + ":" + channel_group[8:] + '\n')
@@ -104,6 +105,8 @@ def parse():
                 if channel_name[10:] == key:
                     logger.debug("%s is found" % (channel_name.decode('utf-8')))
                     if channel_group[8:] != channels[key]:
+                        if channels[key] == "delete".lower():
+                            write = False
                         logger.debug("Group is not the same for %s" % channel_name.decode('utf-8'))
                         channel_group = "#EXTGRP:%s" % channels[key]
                         break
@@ -112,6 +115,7 @@ def parse():
 
                 else:
                     logger.debug("%s is NOT found" % (channel_name.decode('utf-8')))
-            f.write('#EXTINF:0 group-title="' + channel_group[8:] + '",' + channel_name[
+            if write:
+                f.write('#EXTINF:0 group-title="' + channel_group[8:] + '",' + channel_name[
                                                                            10:] + "\n" + channel_group + "\n" + channel_link + "\n")
         f.close()
