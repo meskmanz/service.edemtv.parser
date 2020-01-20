@@ -90,7 +90,7 @@ def parse():
             f_ch_list = open(os.path.join(kodiutils.get_setting("wlPath"), "channel_list.txt"), "w+")
         f = open(plylist_path, "w+")
         f.write("#EXTM3U\n")
-        pattern = "(\#EXTINF\:0\,.*)\n(\#EXTGRP\:.*)\n(http\:\/\/.*)\n"
+        pattern = "(\#EXTINF\:0.*\,.*)\n(\#EXTGRP\:.*)\n(http\:\/\/.*)\n"
         match = re.finditer(pattern, data, re.M | re.I)
         for item in match:
             channel_name = item.group(1).replace("\r", "")
