@@ -5,7 +5,7 @@
     <setting id="m3uUrl" type="text" label="30012" default=""/>
     <setting id="m3uPath" type="folder" label="30011" default=""/>
     <setting id="m3uFilename" type="text" label="30013" default="edited_playlist.m3u8"/>
-    <setting id="timer" type="number" label="30014" default="3600" />
+    <setting id="timer" type="number" label="30014" default="7200" />
     </category>
     <category label="30020">
     <setting id="sep2" label="30020" type="lsep"/>

@@ -77,7 +77,6 @@ def parse():
         match = re.finditer("(.*)\:(.*)", f_ch)
         for item in match:
             channels[item.group(1)] = item.group(2)
-
         # logger.debug(data)
         plylist_path = os.path.join(kodiutils.get_setting("m3uPath"), kodiutils.get_setting("m3uFilename"))
         if kodiutils.get_setting("m3uPath") == "":
@@ -98,24 +97,25 @@ def parse():
             channel_link = item.group(3).replace("\r", "")
             write = True
             # print channel_name
+            ch_code = channel_name.split(",")[0]
+            ch_name = channel_name.split(",")[1]
             if kodiutils.get_setting_as_bool("debug"):
-                logger.debug(channel_name[10:] + ":" + channel_group[8:] + '\n')
-                f_ch_list.write(channel_name[10:] + ":" + channel_group[8:] + '\n')
+                logger.debug(ch_name + ":" + channel_group[8:] + '\n')
+                f_ch_list.write(ch_name + ":" + channel_group[8:] + '\n')
             for key in channels:
-                if channel_name[10:] == key:
-                    logger.debug("%s is found" % (channel_name.decode('utf-8')))
+                if ch_name == key:
+                    logger.debug("%s is found" % ch_name)
                     if channel_group[8:] != channels[key]:
                         if channels[key] == "delete".lower():
                             write = False
-                        logger.debug("Group is not the same for %s" % channel_name.decode('utf-8'))
+                        logger.debug("Group is not the same for %s" % ch_name)
                         channel_group = "#EXTGRP:%s" % channels[key]
                         break
                     else:
-                        logger.debug("Group is the same %s" % channel_name.decode('utf-8'))
-
+                        logger.debug("Group is the same %s" % ch_name)
                 else:
-                    logger.debug("%s is NOT found" % (channel_name.decode('utf-8')))
+                    logger.debug("%s is NOT found" % ch_name)
             if write:
-                f.write('#EXTINF:0 group-title="' + channel_group[8:] + '",' + channel_name[
-                                                                           10:] + "\n" + channel_group + "\n" + channel_link + "\n")
+                f.write(ch_code + ' group-title="' + channel_group[
+                                                     8:] + '",' + ch_name + '\n' + channel_group + "\n" + channel_link + "\n")
         f.close()
