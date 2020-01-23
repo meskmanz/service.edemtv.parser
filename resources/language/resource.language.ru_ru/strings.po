@@ -28,6 +28,10 @@ msgctxt "#30010"
 msgid "General"
 msgstr "Общие"
 
+msgctxt "#30090"
+msgid "Use M3U URL from PVR.SimpleIPTV Addon"
+msgstr "Использовать M3U ссылку из PVR.SimpleIPTV дополнения"
+
 msgctxt "#30012"
 msgid "Edem.tv M3U Play List URL"
 msgstr "Ссылка на Edem.tv M3U плелист"
@@ -41,8 +45,8 @@ msgid "Edited M3U Play List filename"
 msgstr "Имя файла нового плейлиста"
 
 msgctxt "#30014"
-msgid "Check playlist every (sec)"
-msgstr "Интервал для обновления (секунды)"
+msgid "Check playlist every (min)"
+msgstr "Интервал для обновления (минуты)"
 
 msgctxt "#30020"
 msgid "Wishlist settings"

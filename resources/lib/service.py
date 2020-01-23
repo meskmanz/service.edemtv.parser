@@ -2,6 +2,111 @@
 
 from resources.lib import kodiutils
 from resources.lib import kodilogging
+import subprocess
+import xbmc
+import xbmcaddon
+import urllib2, re, os
+from xml.dom import minidom
+import time
+
+ADDON = xbmcaddon.Addon()
+
+
+class Monitor(xbmc.Monitor):
+
+   def __init__(self, *args, **kwargs):
+      xbmc.Monitor.__init__(self)
+      self.addon = xbmcaddon.Addon()
+      self.id = xbmcaddon.Addon().getAddonInfo('id')
+
+   def onSettingsChanged(self):
+       xbmc.log("settings changed")
+      #subprocess.call([['systemctl',|'restart', self.id]])
+
+def doLog(text, logLevel):
+    levels = {
+        "CRITICAL": xbmc.LOGFATAL,
+        "ERROR": xbmc.LOGERROR,
+        "WARNING": xbmc.LOGWARNING,
+        "INFO": xbmc.LOGINFO,
+        "DEBUG": xbmc.LOGDEBUG,
+        "NOTSET": xbmc.LOGNONE,
+    }
+    try:
+        xbmc.log("[ETVPP] "+text, levels[logLevel])
+    except UnicodeEncodeError:
+        xbmc.log("[ETVPP] "+text.encode(
+            'utf-8', 'ignore'), levels[logLevel])
+
+
+def getM3uUrlFromAddon():
+    #TODO: Getting path using API
+    path = os.path.join("C:\\Users\\Meskman\\AppData\\Roaming\\Kodi\\userdata\\addon_data\\pvr.iptvsimple",
+                        "settings.xml")
+    xmldoc = minidom.parse(path)
+    itemlist = xmldoc.getElementsByTagName('setting')
+    for item in itemlist:
+        if item.attributes['id'].value == "m3uUrl":
+            doLog("Getting M3U URL from PVR Addon: %s" %item.firstChild.data, "DEBUG")
+            return item.firstChild.data
+
+
+class Parser:
+
+    def __init__(self):
+        self.m3uUrl = ""
+
+    def _getM3uUrl(self):
+        if kodiutils.get_setting_as_bool("m3uUrlAddon"):
+            m3uUrl = getM3uUrlFromAddon()
+            if len(m3uUrl) == 0:
+                doLog("m3uUrl is empty in PVR Addon", "ERROR")
+                kodiutils.notification("Edem.tv parser",
+                                       "Cannot get URL from PVR.SimpeIPTV. It's empty",
+                                       time=5000, icon=ADDON.getAddonInfo('icon'),
+                                       sound=True)
+            else:
+                self.m3uUrl = m3uUrl
+        else:
+            m3uUrl = kodiutils.get_setting("m3uUrl")
+            if len(m3uUrl) == 0:
+                doLog("m3uUrl is empty in settings", "ERROR")
+                kodiutils.notification("Edem.tv parser",
+                                       "Add  M3U URL in Settings",
+                                       time=5000, icon=ADDON.getAddonInfo('icon'),
+                                       sound=True)
+            else:
+                self.m3uUrl = m3uUrl
+
+    def _get_m3u_playlist(self, m3uUrl):
+        # Getting playlist from URL
+        req = urllib2.Request(m3uUrl)
+        req.add_header('User-Agent',
+                       ' Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3')
+        response = urllib2.urlopen(req)
+        data = response.read()
+        return data
+
+    def run(self):
+        doLog("RUN FUNCTION START", "DEBUG")
+        self._getM3uUrl()
+
+        data = self._get_m3u_playlist(self.m3uUrl)
+        #doLog("URL -, "DEBUG")
+
+
+"""
+def run():
+    if kodiutils.get_setting_as_bool("m3uUrlAddon"):
+        m3uUrl = getM3uUrlFromAddon()
+    doLog("URL - %s" %m3uUrl, "DEBUG")
+
+"""
+
+
+"""
+from resources.lib import kodiutils
+from resources.lib import kodilogging
 import logging
 import time
 import xbmc
@@ -9,6 +114,7 @@ import xbmcaddon
 import urllib2
 import re
 import os
+from xml.dom import minidom
 
 ADDON = xbmcaddon.Addon()
 logger = logging.getLogger(ADDON.getAddonInfo('id'))
@@ -26,6 +132,7 @@ def loop():
         if monitor.waitForAbort(kodiutils.get_setting_as_int("timer")):
             # Abort was requested while waiting. We should exit
             break
+
 
         logger.debug("Edem.tv.parser is launched parse function at %s" % time.time())
         parse()
@@ -58,6 +165,16 @@ def get_wishlist():
         return f_ch
 
 
+def get_m3uUrl_from_addon():
+    path = os.path.join("C:\\Users\\Meskman\\AppData\\Roaming\\Kodi\\userdata\\addon_data\\pvr.iptvsimple",
+                        "settings.xml")
+    xmldoc = minidom.parse(path)
+    itemlist = xmldoc.getElementsByTagName('setting')
+    for item in itemlist:
+        if item.attributes['id'].value == "m3uUrl":
+            return item.firstChild.data
+
+
 def parse():
     logger.info("Edem.tv.parser is executed at %s" % time.time())
     # Showing debug notifications. Controlled by settings.
@@ -65,10 +182,26 @@ def parse():
         kodiutils.notification("Edem.tv parser", "Debug :: Check", time=5000, icon=ADDON.getAddonInfo('icon'),
                                sound=True)
     m3uUrl = kodiutils.get_setting("m3uUrl")
+    """
+"""
     # URL should be set in settings. Do nothing if empty and show notification
     if m3uUrl == "":
-        kodiutils.notification("Warning", "Please set a Edem.tv M3U Play List URL", time=5000,
+        m3uUrl = get_m3uUrl_from_addon()
+        kodiutils.set_setting("m3uUrl", m3uUrl)
+        if len(m3uUrl) == 0:
+            kodiutils.notification("Warning", "Please set a Edem.tv M3U Play List URL", time=5000,
                                icon=ADDON.getAddonInfo('icon'), sound=True)
+    else:
+        """
+"""    while len(m3uUrl) == 0:
+        m3uUrl = get_m3uUrl_from_addon()
+        if len(m3uUrl) == 0:
+            kodiutils.notification("Warning", "Please set a Edem.tv M3U Play List URL", time=5000,
+                                   icon=ADDON.getAddonInfo('icon'), sound=True)
+        else:
+            logger.debug("Setting up m3uUrl on Settings Page ")
+            kodiutils.set_setting("m3uUrl", m3uUrl)
+            continue
     else:
         data = get_m3u_playlist(m3uUrl)
         channels = {}
@@ -119,3 +252,4 @@ def parse():
                 f.write(ch_code + ' group-title="' + channel_group[
                                                      8:] + '",' + ch_name + '\n' + channel_group + "\n" + channel_link + "\n")
         f.close()
+"""
