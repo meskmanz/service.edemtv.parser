@@ -46,21 +46,25 @@ def doLog(text, logLevel):
 
 def getM3uUrlFromAddon():
     #TODO: Getting path using API
-    path = os.path.join("C:\\Users\\Meskman\\AppData\\Roaming\\Kodi\\userdata\\addon_data\\pvr.iptvsimple",
-                        "settings.xml")
-    xmldoc = minidom.parse(path)
-    itemlist = xmldoc.getElementsByTagName('setting')
-    for item in itemlist:
-        if item.attributes['id'].value == "m3uUrl":
-            doLog("Getting M3U URL from PVR Addon: %s" %item.firstChild.data, "DEBUG")
-            return item.firstChild.data
+    #path = os.path.join("C:\\Users\\Meskman\\AppData\\Roaming\\Kodi\\userdata\\addon_data\\pvr.iptvsimple",
+                       # "settings.xml")
+    path = os.path.join(xbmc.translatePath("special://profile/addon_data/pvr.iptvsimple"), "settings.xml")
+    if os.path.exists(path):
+        xmldoc = minidom.parse(path)
+        itemlist = xmldoc.getElementsByTagName('setting')
+        for item in itemlist:
+            if item.attributes['id'].value == "m3uUrl":
+                doLog("Getting M3U URL from PVR Addon: %s" %item.firstChild.data, "DEBUG")
+                return item.firstChild.data
+    else:
+        return ""
 
 
 class Parser:
 
     def __init__(self):
         self.m3uUrl = ""
-        self.wishlist = self._get_wishlist()
+        self.wishlist = None
 
     def _getM3uUrl(self):
         if kodiutils.get_setting_as_bool("m3uUrlAddon"):
@@ -91,18 +95,21 @@ class Parser:
             doLog("Please set a path where to store a wishlist", "ERROR")
             kodiutils.notification("Warning", "Please set a path where to store a wishlist", time=5000,
                                    icon=ADDON.getAddonInfo('icon'), sound=True)
-            path = os.path.join(xbmc.translatePath(ADDON.getAddonInfo('profile')), kodiutils.get_setting("wlFilename"))
-        if os.path.exists(path):
-            mode = 'r'
+            #path = os.path.join(xbmc.translatePath(ADDON.getAddonInfo('profile')), kodiutils.get_setting("wlFilename"))
+            return None;
         else:
-            mode = 'w+'
-        with open(path, mode) as f:
-            f_ch = f.read()
-        channels = {}
-        match = re.finditer("(.*)\:(.*)", f_ch)
-        for item in match:
-            channels[item.group(1)] = item.group(2)
-        return channels
+            if os.path.exists(path):
+                mode = 'r'
+            else:
+                mode = 'w+'
+            #oLog(mode, "DEBUG")
+            with open(path, mode) as f:
+                f_ch = f.read()
+            channels = {}
+            match = re.finditer("(.*)\:(.*)", f_ch)
+            for item in match:
+                channels[item.group(1)] = item.group(2)
+            return channels
 
     def _get_playlist_path(self):
         plylist_path = os.path.join(kodiutils.get_setting("m3uPath"), kodiutils.get_setting("m3uFilename"))
@@ -111,7 +118,9 @@ class Parser:
                                    icon=ADDON.getAddonInfo('icon'), sound=True)
             plylist_path = os.path.join(xbmc.translatePath(ADDON.getAddonInfo('profile')),
                                         kodiutils.get_setting("m3uFilename"))
-        return plylist_path
+            return None
+        else:
+            return plylist_path
 
 
     def _get_m3u_playlist(self, m3uUrl):
@@ -126,37 +135,41 @@ class Parser:
     def run(self):
         doLog("RUN FUNCTION START", "DEBUG")
         self._getM3uUrl()
-        if kodiutils.get_setting_as_bool("debug"):
-            f_ch_list = open(os.path.join(kodiutils.get_setting("wlPath"), "channel_list.txt"), "w+")
-        f = open(self._get_playlist_path(), "w+")
-        f.write("#EXTM3U\n")
-        pattern = "(\#EXTINF\:0.*\,.*)\n(\#EXTGRP\:.*)\n(http\:\/\/.*)\n"
-        match = re.finditer(pattern, self._get_m3u_playlist(self.m3uUrl), re.M | re.I)
-        for item in match:
-            channel_name = item.group(1).replace("\r", "")
-            channel_group = item.group(2).replace("\r", "")
-            channel_link = item.group(3).replace("\r", "")
-            write = True
-            # print channel_name
-            ch_code = channel_name.split(",")[0]
-            ch_name = channel_name.split(",")[1]
+        self.wishlist = self._get_wishlist()
+        if self.wishlist and self._get_playlist_path() is not None:
             if kodiutils.get_setting_as_bool("debug"):
-                doLog(ch_name + ":" + channel_group[8:] + '\n', "DEBUG")
-                f_ch_list.write(ch_name + ":" + channel_group[8:] + '\n')
-            for key in self.wishlist:
-                if ch_name == key:
-                    doLog("%s is found" % ch_name, "DEBUG")
-                    if channel_group[8:] != self.wishlist[key]:
-                        if self.wishlist[key] == "delete".lower():
-                            write = False
-                        doLog("Group is not the same for %s" % ch_name, "DEBUG")
-                        channel_group = "#EXTGRP:%s" % self.wishlist[key]
-                        break
+                f_ch_list = open(os.path.join(kodiutils.get_setting("wlPath"), "channel_list.txt"), "w+")
+            f = open(self._get_playlist_path(), "w+")
+            f.write("#EXTM3U\n")
+            pattern = "(\#EXTINF\:0.*\,.*)\n(\#EXTGRP\:.*)\n(http\:\/\/.*)\n"
+            match = re.finditer(pattern, self._get_m3u_playlist(self.m3uUrl), re.M | re.I)
+            for item in match:
+                channel_name = item.group(1).replace("\r", "")
+                channel_group = item.group(2).replace("\r", "")
+                channel_link = item.group(3).replace("\r", "")
+                write = True
+                # print channel_name
+                ch_code = channel_name.split(",")[0]
+                ch_name = channel_name.split(",")[1]
+                if kodiutils.get_setting_as_bool("debug"):
+                    doLog(ch_name + ":" + channel_group[8:] + '\n', "DEBUG")
+                    f_ch_list.write(ch_name + ":" + channel_group[8:] + '\n')
+                for key in self.wishlist:
+                    if ch_name == key:
+                        doLog("%s is found" % ch_name, "DEBUG")
+                        if channel_group[8:] != self.wishlist[key]:
+                            if self.wishlist[key] == "delete".lower():
+                                write = False
+                            doLog("Group is not the same for %s" % ch_name, "DEBUG")
+                            channel_group = "#EXTGRP:%s" % self.wishlist[key]
+                            break
+                        else:
+                            doLog("Group is the same %s" % ch_name, "DEBUG")
                     else:
-                        doLog("Group is the same %s" % ch_name, "DEBUG")
-                else:
-                    doLog("%s is NOT found" % ch_name, "DEBUG")
-            if write:
-                f.write(ch_code + ' group-title="' + channel_group[
-                                                     8:] + '",' + ch_name + '\n' + channel_group + "\n" + channel_link + "\n")
-        f.close()
+                        doLog("%s is NOT found" % ch_name, "DEBUG")
+                if write:
+                    f.write(ch_code + ' group-title="' + channel_group[
+                                                         8:] + '",' + ch_name + '\n' + channel_group + "\n" + channel_link + "\n")
+            f.close()
+        else:
+            doLog("Some path does not exist", "ERROR")
