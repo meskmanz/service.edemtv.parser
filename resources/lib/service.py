@@ -121,5 +121,5 @@ def parse():
                     logger.debug("%s is NOT found" % ch_name)
             if write:
                 f.write(ch_code + ' group-title="' + channel_group[
-                                                     8:] + '",' + ch_name + '\n' + channel_group + "\n" + channel_link)
+                                                     8:] + '",' + ch_name + '\n' + channel_group + "\n" + channel_link + "\n")
         f.close()
