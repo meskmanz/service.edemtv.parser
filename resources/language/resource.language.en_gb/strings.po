@@ -65,3 +65,23 @@ msgstr ""
 msgctxt "#30030"
 msgid "Development"
 msgstr ""
+
+msgctxt "#30031"
+msgid "Launching the app"
+msgstr ""
+
+msgctxt "#30032"
+msgid "Edem.tv parser"
+msgstr ""
+
+msgctxt "#30033"
+msgid "Warning"
+msgstr ""
+
+msgctxt "#30034"
+msgid "M3U playlist URL is not set"
+msgstr ""
+
+msgctxt "#30035"
+msgid "Please set a path where to store a playlist"
+msgstr ""

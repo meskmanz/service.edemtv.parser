@@ -42,7 +42,7 @@ msgstr "Имя файла нового плейлиста"
 
 msgctxt "#30014"
 msgid "Check playlist every (sec)"
-msgstr "Интервал для обновления (секунды)"
+msgstr "Обновлять плейлист каждые (секунды)"
 
 msgctxt "#30020"
 msgid "Wishlist settings"
@@ -58,8 +58,28 @@ msgstr "Имя файла с настройками"
 
 msgctxt "#30023"
 msgid "Exclude channels by pattern"
-msgstr "Исключить каналы с патерном"
+msgstr "Исключить каналы используя шаблон"
 
 msgctxt "#30030"
 msgid "Development"
 msgstr "Для разработчика"
+
+msgctxt "#30031"
+msgid "Launching the app"
+msgstr "Дополнение запускается"
+
+msgctxt "#30032"
+msgid "Edem.tv parser"
+msgstr "Єдем ТВ Парсер"
+
+msgctxt "#30033"
+msgid "Warning"
+msgstr "Внимание"
+
+msgctxt "#30034"
+msgid "Ссылка на M3U плейлист не указан"
+msgstr ""
+
+msgctxt "#30035"
+msgid "Укажите путь куда сохранять обновленный плейлист"
+msgstr ""
