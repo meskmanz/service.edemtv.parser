@@ -11,6 +11,7 @@
     <setting id="sep2" label="30020" type="lsep"/>
     <setting id="wlPath" type="folder" label="30021" default=""/>
     <setting id="wlFilename" type="text" label="30022" default="my_channels.txt"/>
+    <setting id="exclChPattern" type="text" label="30023" default=".*orig|.*4K|.*FHD"/>
     </category>
     <category label="30030">    
     <setting id="sep1" label="30030" type="lsep"/>

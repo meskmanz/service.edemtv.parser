@@ -58,6 +58,10 @@ msgctxt "#30022"
 msgid "Wishlist filename"
 msgstr ""
 
+msgctxt "#30023"
+msgid "Exclude channels by pattern"
+msgstr ""
+
 msgctxt "#30030"
 msgid "Development"
 msgstr ""

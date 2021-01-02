@@ -87,6 +87,7 @@ def parse():
         logger.debug(plylist_path)
         if kodiutils.get_setting_as_bool("debug"):
             f_ch_list = open(os.path.join(kodiutils.get_setting("wlPath"), "channel_list.txt"), "w+")
+        exclude_ch_pattern = kodiutils.get_setting("exclChPattern")
         f = open(plylist_path, "w+")
         f.write("#EXTM3U\n")
         pattern = "(\#EXTINF\:0.*\,.*)\n(\#EXTGRP\:.*)\n(http\:\/\/.*)\n"
@@ -99,6 +100,9 @@ def parse():
             # print channel_name
             ch_code = channel_name.split(",")[0]
             ch_name = channel_name.split(",")[1]
+            exclude_channel = bool(re.match(exclude_ch_pattern, ch_name))
+            if len(exclude_ch_pattern) > 0 and exclude_channel:
+                write = False
             if kodiutils.get_setting_as_bool("debug"):
                 logger.debug(ch_name + ":" + channel_group[8:] + '\n')
                 f_ch_list.write(ch_name + ":" + channel_group[8:] + '\n')
@@ -117,5 +121,5 @@ def parse():
                     logger.debug("%s is NOT found" % ch_name)
             if write:
                 f.write(ch_code + ' group-title="' + channel_group[
-                                                     8:] + '",' + ch_name + '\n' + channel_group + "\n" + channel_link + "\n")
+                                                     8:] + '",' + ch_name + '\n' + channel_group + "\n" + channel_link)
         f.close()

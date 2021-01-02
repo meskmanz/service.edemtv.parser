@@ -56,6 +56,10 @@ msgctxt "#30022"
 msgid "Wishlist filename"
 msgstr "Имя файла с настройками"
 
+msgctxt "#30023"
+msgid "Exclude channels by pattern"
+msgstr "Исключить каналы с патерном"
+
 msgctxt "#30030"
 msgid "Development"
 msgstr "Для разработчика"
