@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="service.edemtv.parser" name="Edem.tv Playlist Parser" version="1.0.5" provider-name="Meskman">
+<addon id="service.edemtv.parser" name="Edem.tv Playlist Parser" version="1.0.6" provider-name="Meskman">
     <requires>
         <import addon="xbmc.python" version="2.25.0"/>
     </requires>
@@ -9,15 +9,20 @@
         <description lang="en_GB">This service is parsing playlist from Edem.tv and modifies it according to your withes. Then it generates a new playlist that can be used in PVR IPTV Simple Client.</description>
         <summary lang="ru_Ru">Для корректной работы необходимо: 1. Указать ссылку на Едем.тв плейлист. 2. Указать где лежит файл с пожеланиями по каналах и группах. 3. В Pvr IPTVSimpleClient указать плейлист сгенерированный этим дополнением</summary>
         <description lang="ru_RU">Это дополнение адаптирует плейлист от Едем.тв для Коди(парсает группы, сортирует группы)</description>
+        <summary lang="uk_UA">Для правильної работи потрібно: 1. Зазначити ссилку на Едем.тв плейлист. 2. Зазначити де знаходиться файл с побажаннями по каналах и групах. 3. В Pvr IPTVSimpleClient зазначити плейлист сгенерованим цією надбудовою</summary>
+        <description lang="uk_UA">Ця надбудова адаптує плейлист от Едем.тв для Коді(парсає групи, сортує групи)</description>
         <language></language>
         <platform>all</platform>
-        <license>UNLICENSED</license>
+        <license>GPL-2.0-or-later</license>
         <forum></forum>
         <website>kodi.tv</website>
         <email>mesk.trash@gmail.com</email>
-        <source></source>
-        <news></news>
-        <disclaimer></disclaimer>
+        <source>https://github.com/meskmanz/service.edemtv.parser</source>
+        <news>v1.0.6
+      [new] Ukrainian localization added</news>
+        <disclaimer lang="en_GB">This addon just modifies playlist that should be used by Pvr IPTVSimpleClient addon </disclaimer>
+        <disclaimer lang="ru_RU">Это дополенние просто перегенерирует плейлист который будет использован IPTVSimpleClient дополеннием </disclaimer>
+        <disclaimer lang="uk_UA">Ця надбудова просто перегенеровує плейлист котрий буде використаний Pvr IPTVSimpleClient надбудовою </disclaimer>
         <assets>
             <icon>resources/icon.png</icon>
             <fanart>resources/fanart.jpg</fanart>

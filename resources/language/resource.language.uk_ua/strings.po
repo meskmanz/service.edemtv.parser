@@ -26,60 +26,60 @@ msgstr "Дебаг"
 
 msgctxt "#30010"
 msgid "General"
-msgstr "Общие"
+msgstr "Загальні"
 
 msgctxt "#30012"
 msgid "Edem.tv M3U Play List URL"
-msgstr "Ссылка на Edem.tv M3U плейлист"
+msgstr "Ссилка на Edem.tv M3U плейлист"
 
 msgctxt "#30011"
 msgid "Edited M3U Play List Path"
-msgstr "Путь к новому плейлисту"
+msgstr "Шлях до нового плейлиста"
 
 msgctxt "#30013"
 msgid "Edited M3U Play List filename"
-msgstr "Имя файла нового плейлиста"
+msgstr "Назва файла нового плейлиста"
 
 msgctxt "#30014"
 msgid "Check playlist every (sec)"
-msgstr "Обновлять плейлист каждые (секунды)"
+msgstr "Оновлювати плейлист кожні (секунди)"
 
 msgctxt "#30020"
 msgid "Wishlist settings"
-msgstr "Настройки своих групп"
+msgstr "Налаштування своїх груп"
 
 msgctxt "#30021"
 msgid "Wishlist Path"
-msgstr "Путь к файлу с настройками"
+msgstr "Шлях до файлу з налаштуваннями"
 
 msgctxt "#30022"
 msgid "Wishlist filename"
-msgstr "Имя файла с настройками"
+msgstr "Назва файла с налаштуваннями"
 
 msgctxt "#30023"
 msgid "Exclude channels by pattern"
-msgstr "Исключить каналы используя шаблон"
+msgstr "Виключити канали згідно шаблону"
 
 msgctxt "#30030"
 msgid "Development"
-msgstr "Для разработчика"
+msgstr "Для разробника"
 
 msgctxt "#30031"
 msgid "Launching the app"
-msgstr "Дополнение запускается"
+msgstr "Надбудова запускається"
 
 msgctxt "#30032"
 msgid "Edem.tv parser"
-msgstr "Єдем ТВ Парсер"
+msgstr "Едем ТВ Парсер"
 
 msgctxt "#30033"
 msgid "Warning"
-msgstr "Внимание"
+msgstr "Увага"
 
 msgctxt "#30034"
-msgid "Ссылка на M3U плейлист не указан"
+msgid "Ссилка на M3U плейлист не вказана"
 msgstr ""
 
 msgctxt "#30035"
-msgid "Укажите путь куда сохранять обновленный плейлист"
+msgid "Вкажіть шлях куда зберігати оновленний плейлист"
 msgstr ""
